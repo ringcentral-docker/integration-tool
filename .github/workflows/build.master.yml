@@ -1,0 +1,38 @@
+name: Build and Push Image
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      # '*' matches any character except '/'
+      - 'images/*'
+      - '.github/workflows/*'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Docker login
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets. DOCKER_HUB_USERNAME }} 
+          DOCKER_HUB_PASSWORD: ${{ secrets. DOCKER_HUB_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+        run: |
+          echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USERNAME --password-stdin
+          echo $GITHUB_TOKEN | docker login docker.pkg.github.com --username $GITHUB_ACTOR --password-stdin
+      - name: Build & Push Image -- ringcentral/aws-cli
+        run: |
+          cd images
+          IMAGE_NAME=ringcentral/aws-cli
+          docker build -t ${IMAGE_NAME} -f Dockerfile.aws-cli .
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:latest"
+      - name: Build & Push Image -- ringcentral/gsuite-cli
+        run: |
+          cd images
+          IMAGE_NAME=ringcentral/gsuite-cli
+          docker build -t ${IMAGE_NAME} -f Dockerfile.gsuite-cli .
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:latest"
