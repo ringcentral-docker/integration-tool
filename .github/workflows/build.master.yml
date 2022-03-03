@@ -3,7 +3,7 @@ name: Build and Push Image
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       # '*' matches any character except '/'
       - 'images/*'

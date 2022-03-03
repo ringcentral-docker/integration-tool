@@ -3,7 +3,7 @@ name: Build Image
 on:
   pull_request:
     branches:
-      - master
+      - main
     paths:
       # '*' matches any character except '/'
       - 'image/*'
