@@ -1,50 +1,67 @@
-name: Build Image
+name: Build and Push Image
 
 on:
-  pull_request:
+  push:
     branches:
       - main
     paths:
       # '*' matches any character except '/'
-      - 'image/*'
+      - 'images/*'
       - '.github/workflows/*'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - name: Build Imag:aws-cli
+      - name: Docker login
+        env:
+          DOCKER_HUB_USERNAME: ${{ secrets. DOCKER_HUB_USERNAME }} 
+          DOCKER_HUB_PASSWORD: ${{ secrets. DOCKER_HUB_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+        run: |
+          echo $DOCKER_HUB_PASSWORD | docker login --username $DOCKER_HUB_USERNAME --password-stdin
+          echo $GITHUB_TOKEN | docker login docker.pkg.github.com --username $GITHUB_ACTOR --password-stdin
+          
+      - name: Build & Push Image -- ringcentral/int-aws-cli
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-aws-cli
           docker build -t ${IMAGE_NAME} -f Dockerfile.aws-cli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
-      - name: Build Imag:gsuite-cli
+          docker push "${IMAGE_NAME}:latest"
+
+      - name: Build & Push Image -- ringcentral/int-gsuite-cli
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-gsuite-cli
           docker build -t ${IMAGE_NAME} -f Dockerfile.gsuite-cli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
-      - name: Build Imag:webstore-cli
+          docker push "${IMAGE_NAME}:latest"
+
+      - name: Build & Push Image -- ringcentral/int-webstore-cli
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-webstore-cli
           VERSION="$(awk -F '[@]'  '/chrome-webstore-upload-cli/ {print $2}' Dockerfile.webstore-cli)"
           docker build -t ${IMAGE_NAME} -f Dockerfile.webstore-cli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"   
-          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"   
-      - name: Build Imag:node-zip
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"  
+          docker push "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:${VERSION}"
+
+      - name: Build & Push Image -- ringcentral/int-node-zip
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-node-zip 
           docker build -t ${IMAGE_NAME} -f Dockerfile.node .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
-      - name: Build Imag:int-node-awscli
+          docker push "${IMAGE_NAME}:latest"
+
+      - name: Build & Push Image -- ringcentral/int-node-awscli
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-node-awscli
           docker build -t ${IMAGE_NAME} -f Dockerfile.node.awscli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
-      
+          docker push "${IMAGE_NAME}:latest"
