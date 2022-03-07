@@ -1,0 +1,4 @@
+### STAGE 1: Build ###
+FROM ringcentral/ruby-node:latest
+
+RUN gem install zendesk_apps_tools
