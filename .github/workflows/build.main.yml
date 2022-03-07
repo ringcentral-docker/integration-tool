@@ -65,6 +65,7 @@ jobs:
           docker build -t ${IMAGE_NAME} -f Dockerfile.node.awscli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
           docker push "${IMAGE_NAME}:latest"
+
       - name: Build & Push Image -- ringcentral/int-zendesk-cli
         run: |
           cd images

@@ -53,4 +53,3 @@ jobs:
           IMAGE_NAME=ringcentral/int-zendesk-cli
           docker build -t ${IMAGE_NAME} -f Dockerfile.zendesk-cli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
-      
