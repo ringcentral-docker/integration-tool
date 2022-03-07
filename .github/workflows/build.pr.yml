@@ -47,4 +47,10 @@ jobs:
           IMAGE_NAME=ringcentral/int-node-awscli
           docker build -t ${IMAGE_NAME} -f Dockerfile.node.awscli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+      - name: Build Imag:zendesk-cli
+        run: |
+          cd images
+          IMAGE_NAME=ringcentral/int-zendesk-cli
+          docker build -t ${IMAGE_NAME} -f Dockerfile.zendesk-cli .
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
       
