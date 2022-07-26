@@ -58,3 +58,10 @@ jobs:
           IMAGE_NAME=ringcentral/int-zendesk-cli
           docker build -t ${IMAGE_NAME} -f Dockerfile.zendesk-cli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+
+      - name: Build Imag:node-sdet-cli
+        run: |
+          cd images
+          IMAGE_NAME=ringcentral/node-sdet-cli
+          docker build -t ${IMAGE_NAME} -f Dockerfile.node-sdet-cli .
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
