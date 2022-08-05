@@ -29,15 +29,20 @@ jobs:
           IMAGE_NAME=ringcentral/int-aws-cli
           docker build -t ${IMAGE_NAME} -f Dockerfile.aws-cli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"
           docker push "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:${VERSION}"
 
       - name: Build & Push Image -- ringcentral/int-gsuite-cli
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-gsuite-cli
+          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile)"
           docker build -t ${IMAGE_NAME} -f Dockerfile.gsuite-cli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"
           docker push "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:${VERSION}"
 
       - name: Build & Push Image -- ringcentral/int-webstore-cli
         run: |
@@ -54,17 +59,23 @@ jobs:
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-node-zip 
+          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile)"
           docker build -t ${IMAGE_NAME} -f Dockerfile.node .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"
           docker push "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:${VERSION}"
 
       - name: Build & Push Image -- ringcentral/int-node-awscli
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-node-awscli
+          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile)"
           docker build -t ${IMAGE_NAME} -f Dockerfile.node.awscli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"
           docker push "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:${VERSION}"
 
       - name: Build & Push Image -- ringcentral/int-zendesk-cli
         run: |
