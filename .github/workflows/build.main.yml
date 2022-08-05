@@ -35,7 +35,7 @@ jobs:
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-gsuite-cli
-          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile)"
+          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile.gsuite-cli)"
           docker build -t ${IMAGE_NAME} -f Dockerfile.gsuite-cli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"
@@ -57,7 +57,7 @@ jobs:
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-node-zip 
-          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile)"
+          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile.node)"
           docker build -t ${IMAGE_NAME} -f Dockerfile.node .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"
@@ -68,7 +68,7 @@ jobs:
         run: |
           cd images
           IMAGE_NAME=ringcentral/int-node-awscli
-          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile)"
+          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile.node.awscli)"
           docker build -t ${IMAGE_NAME} -f Dockerfile.node.awscli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"
