@@ -2,7 +2,7 @@ FROM mhart/alpine-node:14
 
 RUN apk -v --update add \
         bash \
-        python3 \
+        python \
         py-pip \
         groff \
         less \
