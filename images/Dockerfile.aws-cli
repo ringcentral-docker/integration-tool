@@ -1,7 +1,8 @@
-FROM alpine:3.7
+FROM node:14.20-alpine3.15
+
 RUN apk -v --update add \
         bash \
-        python \
+        python3 \
         py-pip \
         groff \
         less \
