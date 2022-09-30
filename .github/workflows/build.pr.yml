@@ -20,7 +20,9 @@ jobs:
           cd images
           IMAGE_NAME=ringcentral/int-node-aws-cli
           docker build -t ${IMAGE_NAME} -f Dockerfile.aws-cli .
-          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:3.9"
+          docker push "${IMAGE_NAME}:3.9"
+
 
       - name: Build Imag:gsuite-cli
         run: |
