@@ -90,3 +90,14 @@ jobs:
           docker build -t ${IMAGE_NAME} -f Dockerfile.node-sdet-cli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
           docker push "${IMAGE_NAME}:latest"
+
+      - name: Build & Push Image -- ringcentral/sonarscan
+        run: |
+          cd images
+          IMAGE_NAME=ringcentral/sonarscan
+          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile.sonarscan)"
+          docker build -t ${IMAGE_NAME} -f Dockerfile.sonarscan .
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"
+          docker push "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:${VERSION}"

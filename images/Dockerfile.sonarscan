@@ -1,0 +1,5 @@
+FROM node:16 
+
+ENV NODE_VERSION 16
+
+RUN npm install -g sonarqube-scanner@3.0.0
