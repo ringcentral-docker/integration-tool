@@ -34,6 +34,17 @@ jobs:
           docker push "${IMAGE_NAME}:latest"
           docker push "${IMAGE_NAME}:${VERSION}"
 
+      - name: Build & Push Image -- ringcentral/sentry-cli
+        run: |
+          cd images
+          IMAGE_NAME=ringcentral/sentry-cli
+          VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile.sentry-cli)"
+          docker build -t ${IMAGE_NAME} -f Dockerfile.sentry-cli .
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"
+          docker push "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:${VERSION}"
+
       - name: Build & Push Image -- ringcentral/int-webstore-cli
         run: |
           cd images
