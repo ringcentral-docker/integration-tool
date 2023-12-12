@@ -45,6 +45,13 @@ jobs:
           docker build -t ${IMAGE_NAME} -f Dockerfile.node .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
 
+      - name: Build Imag:sentry-cli
+        run: |
+          cd images
+          IMAGE_NAME=ringcentral/sentry-cli 
+          docker build -t ${IMAGE_NAME} -f Dockerfile.sentry-cli .
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+
       - name: Build Imag:int-node-awscli
         run: |
           cd images
