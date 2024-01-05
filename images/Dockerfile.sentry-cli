@@ -1,4 +1,4 @@
-FROM node:16
-ENV NODE_VERSION 16
+FROM node:20.10
+ENV NODE_VERSION 20.10
 RUN node --version
 RUN curl -sL https://sentry.io/get-cli/ | SENTRY_CLI_VERSION="2.23.0" sh
