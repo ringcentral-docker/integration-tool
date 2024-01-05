@@ -1,5 +1,5 @@
-FROM node:20.10
-ENV NODE_VERSION 20.10
+FROM node:20
+ENV NODE_VERSION 20
 
 RUN node --version
 RUN apt-get update \
