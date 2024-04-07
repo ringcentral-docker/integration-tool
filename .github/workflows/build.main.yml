@@ -84,7 +84,9 @@ jobs:
           IMAGE_NAME=ringcentral/int-zendesk-cli
           VERSION="$(awk -F ' '  '/ENV NODE_VERSION/ {print $3}' Dockerfile.zendesk-cli)"
           docker build -t ${IMAGE_NAME} -f Dockerfile.zendesk-cli .
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:${VERSION}"
+          docker push "${IMAGE_NAME}:latest"
           docker push "${IMAGE_NAME}:${VERSION}"
 
       - name: Build & Push Image -- ringcentral/node-sdet-cli
