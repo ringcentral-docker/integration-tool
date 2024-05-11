@@ -97,6 +97,14 @@ jobs:
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
           docker push "${IMAGE_NAME}:latest"
 
+      - name: Build & Push Image -- ringcentral/node-yarn4
+        run: |
+          cd images
+          IMAGE_NAME=ringcentral/node-yarn4
+          docker build -t ${IMAGE_NAME} -f Dockerfile.node-yarn4 .
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+          docker push "${IMAGE_NAME}:latest"
+
       - name: Build & Push Image -- ringcentral/sonarscan
         run: |
           cd images

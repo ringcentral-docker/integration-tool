@@ -1,0 +1,10 @@
+FROM node:20.12.0
+ENV NODE_VERSION 20.12.0
+RUN node --version
+
+ENV YARN_VERSION berry 
+RUN yarn set version $YARN_VERSION
+RUN yarn --version
+
+RUN apt-get update && apt-get install zip
+#RUN apk update && apk add zip git bash

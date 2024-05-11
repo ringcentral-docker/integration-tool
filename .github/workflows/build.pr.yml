@@ -66,6 +66,13 @@ jobs:
           docker build -t ${IMAGE_NAME} -f Dockerfile.node-sdet-cli .
           docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
 
+      - name: Build Imag:node-yarn4
+        run: |
+          cd images
+          IMAGE_NAME=ringcentral/node-yarn4
+          docker build -t ${IMAGE_NAME} -f Dockerfile.node-yarn4 .
+          docker tag "${IMAGE_NAME}" "${IMAGE_NAME}:latest"
+
       - name: Build Imag:sonarscan
         run: |
           cd images
